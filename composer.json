@@ -1,0 +1,17 @@
+{
+    "name": "joe.szeto/tablelite",
+    "description": "filament like table lite",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "JoeSzeto\\Tablelite\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Szeto",
+            "email": "jokersk119@gmail.com"
+        }
+    ],
+    "require": {}
+}
