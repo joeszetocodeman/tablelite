@@ -2,7 +2,7 @@
 
 namespace Tablelite;
 
-trait MyInteractsWithTable
+trait InteractsWithTablelite
 {
     protected Table $table;
 

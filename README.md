@@ -1,11 +1,12 @@
 ### This package is in development stage, please do not use it in production
 
 ### Usage
+
 ```php
 use Tablelite\Table as TableAlias;
 
 class SomeComponent extends Component  {
-    use \Tablelite\MyInteractsWithTable;
+    use \Tablelite\InteractsWithTablelite;
     
     public function table( TableAlias $table ){
         $table->schema([
