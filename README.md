@@ -25,3 +25,20 @@ in view
     {{ $this->getTable() }} 
 </div>
 ```
+
+
+### Development in local
+#### clone the repository to your local machine
+
+#### add this to your composer.json file
+```json
+"repositories": [
+    {
+        "type": "path",
+        "url": "path/to/tablelite"
+    }
+]
+```
+make sure update the path to the correct path
+
+#### run `composer require joe.szeto/tablelite`
