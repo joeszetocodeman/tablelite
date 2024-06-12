@@ -14,7 +14,7 @@ trait InteractsWithTablelite
         'tableSearchQuery' => '',
     ];
 
-    public function bootMyInteractsWithTable(): void
+    public function bootInteractsWithTablelite(): void
     {
         $this->table = new Table();
         $this->table->livewire($this);
