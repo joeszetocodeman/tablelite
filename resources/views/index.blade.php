@@ -110,7 +110,9 @@
                 @endforeach
             @endif
         </x-tables::table>
-        {{ $links }}
+        <x-slot:footer>
+            {{ $links }}
+        </x-slot:footer>
     </x-table.container>
 </div>
 
