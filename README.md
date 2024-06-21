@@ -29,53 +29,6 @@ in view
 </div>
 ```
 
-```php
-$table->schema([
-    TextColumn::make('id'),
-    TextColumn::make('name'),
-])
-    ->getTableAllIdsUsing([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-    ->records([
-        ['id' => 1, 'name' => 'John'],
-        ['id' => 2, 'name' => 'Doe'],
-    ]);
-
-```
-
-```php
-$table->schema([
-    TextColumn::make('id'),
-    TextColumn::make('name'),
-])
-    ->records([
-        ['id' => 1, 'name' => 'John'],
-        ['id' => 2, 'name' => 'Doe'],
-    ]);
-
-```
-
-### Actions
-
-#### Action usage
-
-```php
- $table->schema([
-    TextColumn::make('id'),
-    TextColumn::make('name'),
-])
-    ->records([
-        ['id' => 1, 'name' => 'John'],
-        ['id' => 2, 'name' => 'Doe'],
-    ])->actions(fn(ActionFactory $actionFactory) => [
-        $actionFactory->make('some_action')
-            ->label('Action Label')
-            ->slideover('your.livewire.component', [
-                'foo' => 'bar'
-            ])
-    ]);
-
-```
-
 ### Development in local
 
 #### clone the repository to your local machine
