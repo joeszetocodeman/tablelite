@@ -112,9 +112,9 @@ class Table extends ViewComponent
         return $this->evaluate($this->selectable);
     }
 
-    public function getLinks(): Htmlable
+    public function getLinks(): ?Htmlable
     {
-        return $this->links;
+        return $this->links ?? null;
     }
 
     public function page(int $tablePage): void

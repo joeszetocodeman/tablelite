@@ -35,6 +35,10 @@ trait SupportPagination
             return collect($records->items());
         }
 
+        if (!$this->paginateUsing) {
+            return $records;
+        }
+
         $paginator = $this->evaluate($this->paginateUsing, [
             'records' => $records,
         ])->create();
