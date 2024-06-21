@@ -2,11 +2,16 @@
     $columns = $getColumns();
     $records = $getRecords();
     $selectable = $getSelectable();
-    $links = $getLinks();
+    if ( $hasFeature('pagination') ) {
+        $links = $getLinks();
+    }
     $searchable = $getSearchable();
+    $headerActions = $getHeaderActions();
+    $actions = $getActions();
+    $slideOvers = $getSlideOvers();
 @endphp
-
-<div x-data="{
+<div>
+    <div x-data="{
         selectedRecords: [],
         shouldCheckUniqueSelection: true,
         debounce(fn, ms) {
@@ -70,50 +75,85 @@
             this.selectedRecords = [];
         }
 }">
-
-    <x-table.container>
-
-        @if($searchable)
-            <input type="text" placeholder="search..." wire:model.debounce="tableData.tableSearchQuery">
-        @endif
-
-        <x-table-lite::select-all />
-
-        <x-tables::table>
-            <x-slot:header>
-                <x-tables::header-cell>
-                    <x-tables::checkbox x-ref="checkallbox" @input="check" />
-                </x-tables::header-cell>
-                @foreach($columns as $column)
-                    <x-tables::header-cell>{{ $column->getLabel()  }}</x-tables::header-cell>
-                @endforeach
-            </x-slot:header>
-            @if($records)
-                @foreach($records as $record)
-                    <x-tables::row>
-                        @if($selectable)
-                            <x-tables::checkbox.cell>
-                                <x-tables::checkbox
-                                    x-model="selectedRecords"
-                                    :value="$record->id"
-                                />
-                            </x-tables::checkbox.cell>
-                        @endif
-                        @foreach($columns as $column)
-                            <x-tables::cell>
-                                <div class="filament-tables-column-wrapper">
-                                    {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
-                                </div>
-                            </x-tables::cell>
+        <x-table-lite::container>
+            @if($headerActions)
+                <div class="flex justify-end p-4">
+                    <div>
+                        @foreach($headerActions as $action)
+                            {{ $action }}
                         @endforeach
-                    </x-tables::row>
-                @endforeach
+                    </div>
+                </div>
             @endif
-        </x-tables::table>
-        <x-slot:footer>
-            {{ $links }}
-        </x-slot:footer>
-    </x-table.container>
+
+            @if($searchable)
+                <input type="text" placeholder="search..." wire:model.debounce="tableData.tableSearchQuery">
+            @endif
+
+            @if ( $hasFeature('bulkSelect'))
+                <x-table-lite::select-all />
+            @endif
+
+            <x-tables::table>
+                <x-slot:header>
+                    @if ( $hasFeature('bulkSelect'))
+                        <x-tables::header-cell>
+                            <x-tables::checkbox x-ref="checkallbox" @input="check" />
+                        </x-tables::header-cell>
+                    @endif
+                    @foreach($columns as $column)
+                        <x-tables::header-cell>{{ $column->getLabel()  }}</x-tables::header-cell>
+                    @endforeach
+                    @if($actions)
+                        <x-tables::header-cell></x-tables::header-cell>
+                    @endif
+                </x-slot:header>
+                @if($records)
+                    @foreach($records as $record)
+                        <x-tables::row>
+                            @if($selectable && $hasFeature('bulkSelect'))
+                                <x-tables::checkbox.cell>
+                                    <x-tables::checkbox
+                                        x-model="selectedRecords"
+                                        :value="$record->id"
+                                    />
+                                </x-tables::checkbox.cell>
+                            @endif
+                            @foreach($columns as $column)
+                                <x-tables::cell>
+                                    <div class="filament-tables-column-wrapper">
+                                        {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
+                                    </div>
+                                </x-tables::cell>
+                            @endforeach
+                            @if ($actions)
+                                <x-tables::cell>
+                                    <div class="filament-tables-actions-cell whitespace-nowrap px-4 py-3">
+                                        @foreach($actions as $action)
+                                            @php
+                                                $action->record($record)->setKey($record->id)
+                                            @endphp
+                                            <div
+                                                wire:key="action-{{ $action->getKey() }}"
+                                                class="filament-tables-actions-container flex items-center gap-4 justify-end">
+                                                {{ $action }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </x-tables::cell>
+                            @endif
+                        </x-tables::row>
+                    @endforeach
+                @endif
+            </x-tables::table>
+            @if ( $hasFeature('pagination') )
+                <x-slot:footer>
+                    {{ $links }}
+                </x-slot:footer>
+            @endif
+
+        </x-table-lite::container>
+    </div>
 </div>
 
 
