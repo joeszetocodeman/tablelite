@@ -9,29 +9,39 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Tablelite\SupportActions\SupportHeaderAction;
+use Tablelite\SupportActions\SupportRowAction;
+use Tablelite\SupportColumns\SupportColumns;
+use Tablelite\SupportPagination\SupportPagination;
 
 class Table extends ViewComponent
 {
+    use SupportHeaderAction,
+        WithSlideOver,
+        SupportRowAction,
+        SupportPagination,
+        SupportColumns;
+
+
     public string $view = 'table-lite::index';
 
-    protected array $schema;
 
     protected array|Closure $records;
     protected ?Collection $cachedRecords = null;
 
     protected bool|Closure $selectable = true;
 
-    private Htmlable $links;
-    protected int $page = 1;
     protected Builder|Closure|null $query = null;
     protected Component $livewire;
+    protected array|Closure $getTableAllIdsUsing;
+
+    protected Feature $feature;
 
     public function getColumns(): array
     {
-        return $this->schema;
+        return $this->evaluate($this->schema);
     }
 
     protected function model(): Model
@@ -47,6 +57,9 @@ class Table extends ViewComponent
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getRecords(): Collection
     {
         if ($this->cachedRecords) {
@@ -64,21 +77,19 @@ class Table extends ViewComponent
             );
         }
 
+        $this->assertRecords();
         // evaluate records
         $records = $this->evaluate($this->records, [
             'page' => $this->page,
             'query' => $this->query,
-            'keyword' => $this->livewire->tableData['tableSearchQuery'] ?? '',
+            'keyword' => $this->livewire->tableData['tableSearchQuery'] ?? ''
         ]);
 
-        $this->livewire->tableData['idsInPage'] = $records->pluck('id')->toArray();
-        $this->livewire->tableData['tableAllIds'] = $this->getQuery()->pluck('id')->toArray();
+        data_set($this->livewire, 'tableData.idsInPage', collect($records)->pluck('id')->toArray());
+        data_set($this->livewire, 'tableData.tableAllIds', $this->getTableAllIds());
 
-        // handle pagination
-        if ($records instanceof LengthAwarePaginator) {
-            $this->links = $records->links('table-lite::pagination');
-            $records = collect($records->items());
-        }
+        $records = $this->handlePaginate($records);
+        $records = collect($records);
 
         // handle records
         return $this->cachedRecords = $records->map(function (array|Arrayable|Model $data) {
@@ -99,12 +110,6 @@ class Table extends ViewComponent
     public function getSelectable()
     {
         return $this->evaluate($this->selectable);
-    }
-
-    public function schema(array $schema): static
-    {
-        $this->schema = $schema;
-        return $this;
     }
 
     public function getLinks(): Htmlable
@@ -167,5 +172,47 @@ class Table extends ViewComponent
         });
 
         return $query;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function getTableAllIds()
+    {
+        if ($this->getTableAllIdsUsing ?? false) {
+            return $this->evaluate($this->getTableAllIdsUsing);
+        }
+        if (!$this->query) {
+            $this->getFeature()->remove(FeatureType::BULK_SELECT);
+            return null;
+        }
+
+        return $this->getQuery()->pluck('id')->toArray();
+    }
+
+    public function getTableAllIdsUsing(array|Closure $getTableAllIdsUsing): Table
+    {
+        $this->getTableAllIdsUsing = $getTableAllIdsUsing;
+        return $this;
+    }
+
+    public function getFeature()
+    {
+        return $this->feature ??= new Feature();
+    }
+
+    public function hasFeature(string|FeatureType $feature): bool
+    {
+        return $this->getFeature()->has($feature);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function assertRecords()
+    {
+        if (!isset($this->records)) {
+            throw new \Exception('Please call records or query function');
+        }
     }
 }

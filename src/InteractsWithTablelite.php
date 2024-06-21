@@ -4,6 +4,8 @@ namespace Tablelite;
 
 trait InteractsWithTablelite
 {
+    use \Tablelite\livewire\WithAction;
+
     protected Table $table;
 
     public array $tableData = [
