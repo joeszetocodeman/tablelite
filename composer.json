@@ -1,6 +1,5 @@
 {
     "name": "joe.szeto/tablelite",
-    "version": "2.0.0",
     "description": "filament like table lite",
     "type": "library",
     "autoload": {
