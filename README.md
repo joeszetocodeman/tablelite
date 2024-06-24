@@ -1,5 +1,16 @@
 ### This package is in development stage, please do not use it in production
 
+### install
+```bash
+composer require joe.szeto/tablelite
+```
+
+update your ```app.php```  file to include the service provider
+```php
+\Tablelite\TablesliteServiceProvider::class
+```
+
+
 ### Usage
 
 ```php
@@ -29,35 +40,7 @@ in view
 </div>
 ```
 
-```php
-$table->schema([
-    TextColumn::make('id'),
-    TextColumn::make('name'),
-])
-    ->getTableAllIdsUsing([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-    ->records([
-        ['id' => 1, 'name' => 'John'],
-        ['id' => 2, 'name' => 'Doe'],
-    ]);
-
-```
-
-```php
-$table->schema([
-    TextColumn::make('id'),
-    TextColumn::make('name'),
-])
-    ->records([
-        ['id' => 1, 'name' => 'John'],
-        ['id' => 2, 'name' => 'Doe'],
-    ]);
-
-```
-
-### Actions
-
-#### Action usage
-
+#### Actions
 ```php
  $table->schema([
     TextColumn::make('id'),
@@ -69,11 +52,34 @@ $table->schema([
     ])->actions(fn(ActionFactory $actionFactory) => [
         $actionFactory->make('some_action')
             ->label('Action Label')
-            ->slideover('your.livewire.component', [
-                'foo' => 'bar'
-            ])
+            ->action(function ($record) {
+                // do something here
+             })
     ]);
 
+```
+
+#### pagination
+```php
+$table->schema([
+    TextColumn::make('id'),
+    TextColumn::make('name'),
+])
+    ->records(
+        function ($page) {
+            // fetch api here
+        }
+    )
+    ->paginateUsing(
+        function ($records, PaginatorBuilder $builder) {
+            // records is the response of the fetching
+            return $builder
+                ->items($records['data']) // the items
+                ->total($records['total']) // total items
+                ->perPage($records['per_page'])
+                ->currentPage($records['current_page']);
+        }
+    );
 ```
 
 ### Development in local
