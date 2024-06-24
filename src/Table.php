@@ -46,7 +46,8 @@ class Table extends ViewComponent
 
     protected function model(): Model
     {
-        return new class extends Model {
+        return new class extends Model
+        {
             protected $guarded = false;
         };
     }

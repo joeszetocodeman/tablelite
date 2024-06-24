@@ -2,6 +2,8 @@
 
 namespace Tablelite;
 
+use Tablelite\SupportActions\BaseAction;
+
 trait InteractsWithTablelite
 {
     use \Tablelite\livewire\WithAction;
@@ -38,11 +40,19 @@ trait InteractsWithTablelite
         $this->tableData['tablePage'] = $page;
     }
 
+
+    public function callTableAction($actionName, $id)
+    {
+        $record = collect($this->table->getRecords())->where('id', $id)->first();
+        $action = collect($this->table->getActions())->firstWhere(
+            fn(BaseAction $action) => $action->getName() === $actionName
+        );
+        $this->evaluate($action->record($record)->getAction(), ['record' => $record]);
+    }
+
     public function getTable(): Table
     {
         $this->table->page(data_get($this->tableData, 'tablePage'));
         return $this->table;
     }
-
-
 }
