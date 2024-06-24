@@ -7,7 +7,7 @@ use Closure;
 use Filament\Support\Actions\Concerns\HasLabel;
 use Filament\Support\Actions\Concerns\HasName;
 use Filament\Support\Components\ViewComponent;
-use Tablelite\SlideOver;
+use Tablelite\SupportSlideOver\SlideOver;
 use Tablelite\Table;
 
 class BaseAction extends ViewComponent
@@ -38,7 +38,7 @@ class BaseAction extends ViewComponent
         return $this->action;
     }
 
-    public function slideOver(string $component, array|Closure $params = []): static
+    public function slideOver(string|Closure $component, array|Closure $params = []): static
     {
         $this->table->slideOver($this, $component, $params);
         return $this;

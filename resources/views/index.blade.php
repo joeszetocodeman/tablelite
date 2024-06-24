@@ -8,7 +8,6 @@
     $searchable = $getSearchable();
     $headerActions = $getHeaderActions();
     $actions = $getActions();
-    $slideOvers = $getSlideOvers();
 @endphp
 <div>
     <div x-data="{

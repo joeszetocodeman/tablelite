@@ -1,7 +1,9 @@
 @props([
     'event' => 'table-lite:show-slide-over',
 ])
-<div x-data="{ open: false }" x-on:{{ $event }}.window="open = true" class="flex justify-center">
+<div x-data="{ open: false }" x-on:{{ $event }}.window="() => {
+    open = true
+}" class="flex justify-center">
     <!-- Slideover -->
     <div
         x-dialog

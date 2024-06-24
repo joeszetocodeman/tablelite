@@ -15,6 +15,7 @@ use Tablelite\SupportActions\SupportHeaderAction;
 use Tablelite\SupportActions\SupportRowAction;
 use Tablelite\SupportColumns\SupportColumns;
 use Tablelite\SupportPagination\SupportPagination;
+use Tablelite\SupportSlideOver\WithSlideOver;
 
 class Table extends ViewComponent
 {
@@ -46,8 +47,7 @@ class Table extends ViewComponent
 
     protected function model(): Model
     {
-        return new class extends Model
-        {
+        return new class extends Model {
             protected $guarded = false;
         };
     }

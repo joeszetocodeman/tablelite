@@ -3,7 +3,7 @@
 namespace Tablelite\livewire;
 
 use App\Domain\CouponInsert\Traits\EvaluatesClosures;
-use Tablelite\SlideOver;
+use Tablelite\SupportSlideOver\SlideOver;
 
 trait WithAction
 {
