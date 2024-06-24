@@ -27,11 +27,10 @@ trait IsSlideOver
     }
 
 
-    protected function slideOverfetch(string $method = '')
+    protected function onSlideOver(string $method = '')
     {
         $event = $this->slideOverEvent;
-        return Placeholder::make('foo')->extraAttributes([
-        ])->content(new HtmlString(<<<html
+        return Placeholder::make($method)->content(new HtmlString(<<<html
         <div x-on:$event.window="() => \$wire.call('$method')"></div>
         html
         ))->label('');
