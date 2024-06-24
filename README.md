@@ -58,6 +58,21 @@ in view
     ]);
 
 ```
+Text style action button
+```php
+$actionFactory->make('some_action')->text()
+```
+
+### header actions
+```php
+ ->headerActions(fn(ActionFactory $actionFactory) => [
+    $actionFactory->make('assign')
+        ->label('Assign Coupon')
+        ->slideover('some-livewire-component', [
+            // params for the livewire component...
+        ])
+])
+```
 
 #### pagination
 ```php
