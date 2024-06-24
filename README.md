@@ -74,6 +74,9 @@ $actionFactory->make('some_action')->text()
 ])
 ```
 
+#### Slide Over
+use ``` IsSlideOver ``` in your livewire component
+
 #### pagination
 ```php
 $table->schema([

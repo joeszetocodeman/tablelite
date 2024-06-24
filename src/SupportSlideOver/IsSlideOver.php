@@ -6,10 +6,20 @@ trait IsSlideOver
 {
     public $actionKey = null;
 
+    public function getSlideOverEventProperty()
+    {
+        return 'table-lite:show-slide-over-'.$this->actionKey;
+    }
+
     protected function getListeners()
     {
         return [
-            'table-lite:show-slide-over-'.$this->actionKey => 'onSlideOpen'
+            $this->slideOverEvent => 'onSlideOpen'
         ];
+    }
+
+    public function onSlideOpen()
+    {
+
     }
 }

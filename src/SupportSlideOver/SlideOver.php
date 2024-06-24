@@ -24,7 +24,9 @@ class SlideOver
 
     public function getComponent()
     {
-        return $this->evaluate($this->component);
+        return $this->evaluate($this->component, [
+            'record' => $this->action->getRecord(),
+        ]);
     }
 
     public function getParams()
