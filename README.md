@@ -63,7 +63,7 @@ Text style action button
 $actionFactory->make('some_action')->text()
 ```
 
-### header actions
+#### header actions
 ```php
  ->headerActions(fn(ActionFactory $actionFactory) => [
     $actionFactory->make('assign')
