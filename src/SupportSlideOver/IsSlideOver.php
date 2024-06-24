@@ -2,6 +2,9 @@
 
 namespace Tablelite\SupportSlideOver;
 
+use Filament\Forms\Components\Placeholder;
+use Illuminate\Support\HtmlString;
+
 trait IsSlideOver
 {
     public $actionKey = null;
@@ -22,4 +25,16 @@ trait IsSlideOver
     {
 
     }
+
+
+    protected function slideOverfetch(string $method = '')
+    {
+        $event = $this->slideOverEvent;
+        return Placeholder::make('foo')->extraAttributes([
+        ])->content(new HtmlString(<<<html
+        <div x-on:$event.window="() => \$wire.call('$method')"></div>
+        html
+        ))->label('');
+    }
+
 }

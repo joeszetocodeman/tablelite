@@ -12,7 +12,7 @@
         class="fixed inset-0 overflow-hidden z-10"
     >
         <!-- Overlay -->
-        <div x-dialog:overlay x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
+        <div x-dialog:overlay x-transition.opacity class="fixed inset-0" style="background: rgba(0,0,0, .5)"></div>
 
         <!-- Panel -->
         <div class="fixed inset-y-0 right-0 max-w-5xl w-full">
