@@ -46,6 +46,16 @@ if ```id``` not found in the records, you can use the ```keyBy``` method to spec
 $table->keyBy('some_key');
 ```
 
+#### Selecteable
+if you want to make the table selectable, you can use the ```selectable``` method
+```php
+$table->selectable();
+```
+disable the select all checkbox
+```php
+$table->selectable(false);
+```
+
 #### Actions
 ```php
  $table->schema([
