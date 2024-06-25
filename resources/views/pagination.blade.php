@@ -1,27 +1,28 @@
 @if ($paginator->hasPages())
+   
     <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}"
-        class="flex items-center justify-between border-t border-gray-50 p-2">
+         class="flex items-center justify-between border-t border-gray-50 p-2">
         <div class="flex flex-1 justify-between sm:hidden">
             @if ($paginator->onFirstPage())
                 <span></span>
             @else
                 <button type="button" wire:click="gotoPage('prev')" rel="prev"
-                    class="relative inline-flex items-center rounded-full p-2 font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 focus:bg-primary-100 active:bg-primary-100 focus:outline-none">
+                        class="relative inline-flex items-center rounded-full p-2 font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 focus:bg-primary-100 active:bg-primary-100 focus:outline-none">
                     <svg class="h-6 w-6 focus:outline-none" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
-                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                            clip-rule="evenodd" />
+                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                              clip-rule="evenodd" />
                     </svg>
                 </button>
             @endif
 
             @if ($paginator->hasMorePages())
                 <button type="button" wire:click="gotoPage('next')" rel="next"
-                    class="relative inline-flex items-center rounded-full p-2 font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 focus:bg-primary-100 active:bg-primary-100 focus:outline-none">
+                        class="relative inline-flex items-center rounded-full p-2 font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 focus:bg-primary-100 active:bg-primary-100 focus:outline-none">
                     <svg class="h-6 w-6 focus:outline-none" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clip-rule="evenodd" />
+                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                              clip-rule="evenodd" />
                     </svg>
                 </button>
             @else
@@ -52,12 +53,12 @@
                     {{-- Previous Page Link --}}
                     @if (!$paginator->onFirstPage())
                         <button wire:click="gotoPage('prev')" rel="prev"
-                            class="relative inline-flex items-center rounded-l-md px-1 py-1 text-sm font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 active:border-primary-500 active:bg-primary-100 active:ring-1 active:ring-inset active:ring-primary-500 focus:outline-none"
-                            aria-label="{{ __('pagination.previous') }}">
+                                class="relative inline-flex items-center rounded-l-md px-1 py-1 text-sm font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 active:border-primary-500 active:bg-primary-100 active:ring-1 active:ring-inset active:ring-primary-500 focus:outline-none"
+                                aria-label="{{ __('pagination.previous') }}">
                             <svg class="h-5 w-5 focus:outline-none" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd" />
+                                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                      clip-rule="evenodd" />
                             </svg>
                         </button>
                     @endif
@@ -82,8 +83,8 @@
                                     </span>
                                 @else
                                     <button wire:click="gotoPage({{ $page }})"
-                                        class="relative -ml-px inline-flex items-center px-3 py-1 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-50 active:border-primary-500 active:bg-primary-100 active:ring-1 active:ring-inset active:ring-primary-500 focus:outline-none"
-                                        aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
+                                            class="relative -ml-px inline-flex items-center px-3 py-1 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-50 active:border-primary-500 active:bg-primary-100 active:ring-1 active:ring-inset active:ring-primary-500 focus:outline-none"
+                                            aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
                                         {{ $page }}
                                     </button>
                                 @endif
@@ -94,12 +95,12 @@
                     {{-- Next Page Link --}}
                     @if ($paginator->hasMorePages())
                         <button wire:click="gotoPage('next')" rel="next"
-                            class="relative -ml-px inline-flex items-center rounded-r-md px-1 py-1 text-sm font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 active:border-primary-500 active:bg-primary-100 active:ring-1 active:ring-inset active:ring-primary-500 focus:outline-none"
-                            aria-label="{{ __('pagination.next') }}">
+                                class="relative -ml-px inline-flex items-center rounded-r-md px-1 py-1 text-sm font-medium leading-5 text-primary-500 transition duration-150 ease-in-out hover:bg-gray-50 active:border-primary-500 active:bg-primary-100 active:ring-1 active:ring-inset active:ring-primary-500 focus:outline-none"
+                                aria-label="{{ __('pagination.next') }}">
                             <svg class="h-5 w-5 focus:outline-none" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd" />
+                                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                      clip-rule="evenodd" />
                             </svg>
                         </button>
                     @endif

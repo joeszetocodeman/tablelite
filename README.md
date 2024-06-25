@@ -76,6 +76,15 @@ $actionFactory->make('some_action')->text()
 
 #### Slide Over
 use ``` IsSlideOver ``` in your livewire component
+when we want to do something when slide over open,
+we can use the ```onSlideOver``` method
+```php
+$this->onSlideOver(
+    'someMethod',
+    loading: true,
+    loadingPattern: 'cccb|accc'
+)
+```
 
 #### pagination
 ```php

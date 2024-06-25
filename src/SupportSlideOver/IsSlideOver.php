@@ -4,7 +4,6 @@ namespace Tablelite\SupportSlideOver;
 
 use Filament\Forms\Components\Placeholder;
 use Filament\Support\Concerns\EvaluatesClosures;
-use Illuminate\Support\HtmlString;
 
 trait IsSlideOver
 {
@@ -30,22 +29,18 @@ trait IsSlideOver
     }
 
 
-    protected function onSlideOver(string $method = '', bool|\Closure $loading = false)
-    {
+    protected function onSlideOver(
+        string $method = '',
+        bool|\Closure $loading = false,
+        string|\Closure|null $loadingPattern = 'aaaa|bbcc'
+    ) {
         $event = $this->slideOverEvent;
-        $loadingEl = $this->evaluate($loading) ? '<div x-show="loading">loading...</div>' : '';
-        return Placeholder::make($method)->content(new HtmlString(<<<html
-        <div x-data="{ loading: false }"
-        x-on:$event.window="async() => {
-          loading = true
-          await \$wire.call('$method')
-          loading = false
-        }"
-        >
-          $loadingEl
-        </div>
-        html
-        ))->label('');
+        $pattern = $this->evaluate($loadingPattern);
+        $loading = $this->evaluate($loading);
+        return Placeholder::make($method)->view(
+            'table-lite::on-slide-over-placeholder',
+            compact('event', 'method', 'pattern', 'loading')
+        )->label('');
     }
 
 }
