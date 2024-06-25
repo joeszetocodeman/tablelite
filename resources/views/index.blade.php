@@ -43,7 +43,11 @@
             })
         },
         get idsInPage() {
-            return this.$wire.tableData['idsInPage'].map(id => id.toString());
+            let ids = [];
+            for (let checkbox of this.$el.closest('table').querySelectorAll('.filament-tables-checkbox-cell input[type=checkbox]')) {
+                  ids.push(checkbox.value);
+            }
+            return ids
         },
         get selectedRecordsCount() {
             return this.selectedRecords.length;

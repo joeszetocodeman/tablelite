@@ -204,6 +204,9 @@ class Table extends ViewComponent
 
     public function hasFeature(string|FeatureType $feature): bool
     {
+        if ( $feature === FeatureType::BULK_SELECT->value) {
+            return $this->getSelectable();
+        }
         return $this->getFeature()->has($feature);
     }
 
