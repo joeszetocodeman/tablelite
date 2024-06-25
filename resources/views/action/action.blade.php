@@ -4,21 +4,23 @@
     $record = $getRecord();
     $name = $getName();
 @endphp
-<div
-    @if($getSlideOver)
-        x-on:click="() => {
+<div>
+    <div
+        @if($getSlideOver)
+            x-on:click="() => {
             let event = 'table-lite:show-slide-over-{{ $getKey() }}'
             $dispatch(event)
             $wire.emit(event)
         }"
-    @endif
-    @if(!$getSlideOver)
-        wire:click="callTableAction('{{ $getName() }}', '{{ $record->id }}' )"
-    @endif
->
-    <x-dynamic-component :$component>
-        {{ $getLabel()  }}
-    </x-dynamic-component>
+        @endif
+        @if(!$getSlideOver)
+            wire:click="callTableAction('{{ $getName() }}', '{{ $record->id }}' )"
+        @endif
+    >
+        <x-dynamic-component :$component>
+            {{ $getLabel()  }}
+        </x-dynamic-component>
+    </div>
 
     @if($getSlideOver)
         <x-table-lite::slide-over event="table-lite:show-slide-over-{{ $getKey() }}">
@@ -27,5 +29,4 @@
             </div>
         </x-table-lite::slide-over>
     @endif
-
 </div>
