@@ -39,6 +39,7 @@ class Table extends ViewComponent
     protected array|Closure $getTableAllIdsUsing;
 
     protected Feature $feature;
+    private string|Closure $keyBy = 'id';
 
     public function getColumns(): array
     {
@@ -218,5 +219,16 @@ class Table extends ViewComponent
         if (!isset($this->records)) {
             throw new \Exception('Please call records or query function');
         }
+    }
+
+    public function keyBy($keyBy)
+    {
+        $this->keyBy = $keyBy;
+        return $this;
+    }
+
+    public function getKeyBy()
+    {
+        return $this->keyBy;
     }
 }

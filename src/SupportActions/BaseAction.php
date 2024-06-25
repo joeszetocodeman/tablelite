@@ -55,8 +55,14 @@ class BaseAction extends ViewComponent
         return $this->table->getSlideOver($this->getName());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function setKey($key)
     {
+        if (!$key) {
+            throw new \Exception('Key is required, make sure property not null in your record');
+        }
         $this->key = $key;
         return $this;
     }

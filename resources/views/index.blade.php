@@ -8,6 +8,7 @@
     $searchable = $getSearchable();
     $headerActions = $getHeaderActions();
     $actions = $getActions();
+    $keyBy = $getKeyBy();
 @endphp
 <div>
     <div x-data="{
@@ -134,7 +135,7 @@
                                     <div class="filament-tables-actions-cell whitespace-nowrap px-4 py-3">
                                         @foreach($actions as $action)
                                             @php
-                                                $action->record($record)->setKey($record->id)
+                                                $action->record($record)->setKey( data_get($record, $keyBy) );
                                             @endphp
                                             <div
                                                 wire:key="action-{{ $action->getKey() }}"
