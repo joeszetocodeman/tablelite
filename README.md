@@ -40,6 +40,12 @@ in view
 </div>
 ```
 
+#### KeyBy
+if ```id``` not found in the records, you can use the ```keyBy``` method to specify the key
+```php
+$table->keyBy('some_key');
+```
+
 #### Actions
 ```php
  $table->schema([
