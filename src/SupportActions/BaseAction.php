@@ -97,12 +97,19 @@ class BaseAction extends ViewComponent
 
     public function getDisable(): bool
     {
-        return $this->evaluate($this->disable);
+        return $this->evaluate($this->disable, [
+            'record' => $this->getRecord()
+        ]);
     }
 
     public function disable(bool|Closure $disable = true): static
     {
         $this->disable = $disable;
         return $this;
+    }
+
+    public function disabled(bool|Closure $disable = true): static
+    {
+        return $this->disable($disable);
     }
 }

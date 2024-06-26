@@ -79,6 +79,13 @@ Text style action button
 $actionFactory->make('some_action')->text()
 ```
 
+#### Disable action
+```php
+$action->disabled()
+// or
+$action->disabled(function($record) : bool {} )
+```
+
 #### header actions
 ```php
  ->headerActions(fn(ActionFactory $actionFactory) => [
