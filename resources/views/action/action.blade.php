@@ -3,23 +3,30 @@
     $component = $getComponent();
     $record = $getRecord();
     $name = $getName();
+    $disable = $getDisable();
 @endphp
 <div>
     <div
-        @if($getSlideOver)
+        @if($getSlideOver && !$disable)
             x-on:click="() => {
-            let event = 'table-lite:show-slide-over-{{ $getKey() }}'
-            $dispatch(event)
-            $wire.emit(event)
-        }"
+                let event = 'table-lite:show-slide-over-{{ $getKey() }}'
+                $dispatch(event)
+                $wire.emit(event)
+            }"
         @endif
-        @if(!$getSlideOver)
+        @if (!$getSlideOver && !$disable)
             wire:click="callTableAction('{{ $getName() }}', '{{ $record->id }}' )"
         @endif
     >
-        <x-dynamic-component :$component>
-            {{ $getLabel()  }}
-        </x-dynamic-component>
+        @if($disable)
+            <x-dynamic-component :$component disabled="disabled" class="opacity-50 disabled:cursor-not-allowed">
+                {{ $getLabel()  }}
+            </x-dynamic-component>
+        @else
+            <x-dynamic-component :$component>
+                {{ $getLabel()  }}
+            </x-dynamic-component>
+        @endif
     </div>
 
     @if($getSlideOver)

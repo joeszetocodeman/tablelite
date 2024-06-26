@@ -20,6 +20,7 @@ class BaseAction extends ViewComponent
     protected Table $table;
     protected string $key = '';
     protected $record;
+    protected bool|Closure $disable = false;
     private string $component = 'filament-support::button';
 
     public static function make(string $name): static
@@ -91,6 +92,17 @@ class BaseAction extends ViewComponent
     public function text()
     {
         $this->component = 'table-lite::action.text';
+        return $this;
+    }
+
+    public function getDisable(): bool
+    {
+        return $this->evaluate($this->disable);
+    }
+
+    public function disable(bool|Closure $disable = true): static
+    {
+        $this->disable = $disable;
         return $this;
     }
 }

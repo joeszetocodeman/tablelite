@@ -32,6 +32,7 @@
                     return;
                 }
                 this.selectedRecords = [...new Set(this.selectedRecords)];
+
                 if (this.idsInPage.every(id => this.selectedRecords.includes(id))) {
                     this.$refs.checkallbox.checked = true;
                 } else {
@@ -44,7 +45,7 @@
         },
         get idsInPage() {
             let ids = [];
-            for (let checkbox of this.$root.querySelectorAll('.filament-tables-checkbox-cell input[type=checkbox]')) {
+            for (let checkbox of this.$el.closest('table').querySelectorAll('.filament-tables-checkbox-cell input[type=checkbox]')) {
                   ids.push(checkbox.value);
             }
             return ids

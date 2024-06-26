@@ -9,7 +9,15 @@
                 x-on:click="selectAllRecords"
                 class="text-sm font-medium text-primary-600" type="button"
             >
-                <span x-text="'Select all ' + $wire.tableData['tableAllIds'].length  "></span>
+                <span x-data="{
+                    get text() {
+                        let tableAllIds = $wire.tableData['tableAllIds']
+                        if (tableAllIds) {
+                            return  'Select all ' + tableAllIds.length
+                        }
+                        return ''
+                    }
+                }" x-text="text"></span>
             </button>
         </span>
         <span>
