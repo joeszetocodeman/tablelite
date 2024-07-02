@@ -56,6 +56,20 @@ disable the select all checkbox
 $table->selectable(false);
 ```
 
+#### Searchable
+if you want to make the Column searchable, you can use the ```searchable``` method
+```php
+$table->schema(fn(ColumnBuilder $builder) => [
+    $builder->text('code')->searchable(),
+]);
+```
+and then you can use the keyword in records closure
+```php
+->records(
+    fn($keyword) => // do something with this keyword
+)
+```
+
 #### Actions
 ```php
  $table->schema([
