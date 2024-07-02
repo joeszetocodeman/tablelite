@@ -91,7 +91,7 @@
             @endif
 
             @if($searchable)
-                <input type="text" placeholder="search..." wire:model.debounce="tableData.tableSearchQuery">
+                <x-table-lite::search />
             @endif
 
             @if ( $hasFeature('bulkSelect'))

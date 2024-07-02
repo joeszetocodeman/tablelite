@@ -4,7 +4,6 @@ namespace Tablelite;
 
 use Closure;
 use Filament\Support\Components\ViewComponent;
-use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
@@ -145,8 +144,8 @@ class Table extends ViewComponent
 
     public function getSearchable(): bool|Closure
     {
-        foreach ($this->schema as $column) {
-            if ($column instanceof TextColumn && $column->isSearchable()) {
+        foreach ($this->getColumns() as $column) {
+            if ($column->isSearchable()) {
                 return true;
             }
         }
