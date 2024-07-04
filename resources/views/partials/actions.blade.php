@@ -1,7 +1,7 @@
 @if ($actions)
-    <x-tables::cell>
+    <x-table-lite::cell>
         <div
-                class="filament-tables-actions-cell whitespace-nowrap px-4 py-3 flex justify-end space-x-2">
+            class="filament-tables-actions-cell whitespace-nowrap px-4 py-3 flex justify-end space-x-2">
             @foreach($actions as $action)
                 @php
                     $action->record($record)->setKey( str(data_get($record, $keyBy))->slug()->value()  );
@@ -13,5 +13,5 @@
                 </div>
             @endforeach
         </div>
-    </x-tables::cell>
+    </x-table-lite::cell>
 @endif

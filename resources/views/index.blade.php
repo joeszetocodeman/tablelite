@@ -98,36 +98,36 @@
                 <x-table-lite::select-all />
             @endif
 
-            <x-tables::table>
+            <x-table-lite::table>
                 <x-slot:header>
                     @if ( $hasFeature('bulkSelect'))
-                        <x-tables::header-cell>
-                            <x-tables::checkbox x-ref="checkallbox" @input="check" />
-                        </x-tables::header-cell>
+                        <x-table-lite::header-cell>
+                            <x-table-lite::checkbox x-ref="checkallbox" @input="check" />
+                        </x-table-lite::header-cell>
                     @endif
                     @foreach($columns as $column)
-                        <x-tables::header-cell>{{ $column->getLabel()  }}</x-tables::header-cell>
+                        <x-table-lite::header-cell>{{ $column->getLabel()  }}</x-table-lite::header-cell>
                     @endforeach
                     @if($actions)
-                        <x-tables::header-cell></x-tables::header-cell>
+                        <x-table-lite::header-cell></x-table-lite::header-cell>
                     @endif
                 </x-slot:header>
                 @if($records)
                     @foreach($records as $record)
-                        <x-tables::row>
+                        <x-table-lite::row>
                             @include('table-lite::partials.checkbox')
                             @foreach($columns as $column)
-                                <x-tables::cell>
+                                <x-table-lite::cell>
                                     <div class="filament-tables-column-wrapper">
                                         {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
                                     </div>
-                                </x-tables::cell>
+                                </x-table-lite::cell>
                             @endforeach
                             @include('table-lite::partials.actions')
-                        </x-tables::row>
+                        </x-table-lite::row>
                     @endforeach
                 @endif
-            </x-tables::table>
+            </x-table-lite::table>
             @if ( $hasFeature('pagination') )
                 <x-slot:footer>
                     {{ $links }}
