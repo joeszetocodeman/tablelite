@@ -13,6 +13,7 @@ use Livewire\Component;
 use Tablelite\SupportActions\SupportHeaderAction;
 use Tablelite\SupportActions\SupportRowAction;
 use Tablelite\SupportColumns\SupportColumns;
+use Tablelite\SupportSelectable\SupportSelectable;
 use Tablelite\SupportPagination\SupportPagination;
 use Tablelite\SupportSlideOver\WithSlideOver;
 
@@ -22,7 +23,8 @@ class Table extends ViewComponent
         WithSlideOver,
         SupportRowAction,
         SupportPagination,
-        SupportColumns;
+        SupportColumns,
+        SupportSelectable;
 
 
     public string $view = 'table-lite::index';
@@ -31,7 +33,6 @@ class Table extends ViewComponent
     protected array|Closure $records;
     protected ?Collection $cachedRecords = null;
 
-    protected bool|Closure $selectable = true;
 
     protected Builder|Closure|null $query = null;
     protected Component $livewire;
@@ -102,16 +103,6 @@ class Table extends ViewComponent
         });
     }
 
-    public function selectable(bool|Closure $selectable = true): static
-    {
-        $this->selectable = $selectable;
-        return $this;
-    }
-
-    public function getSelectable()
-    {
-        return $this->evaluate($this->selectable);
-    }
 
     public function getLinks(): ?Htmlable
     {

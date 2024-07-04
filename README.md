@@ -55,6 +55,10 @@ disable the select all checkbox
 ```php
 $table->selectable(false);
 ```
+if you only want to make some of the records not selectable, you can use the ```selectableRecord``` method in the records closure
+```php
+$table->selectableRecord(fn($record) => $record->slug === 'foo');
+```
 
 #### Searchable
 if you want to make the Column searchable, you can use the ```searchable``` method
