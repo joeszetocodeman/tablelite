@@ -30,7 +30,7 @@
     </div>
 
     @if($getSlideOver)
-        <x-table-lite::slide-over event="table-lite:show-slide-over-{{ $getKey() }}">
+        <x-table-lite::slide-over wire:key="{{ str()->uuid() }}" event="table-lite:show-slide-over-{{ $getKey() }}">
             <div>
                 @livewire($getSlideOver->getComponent(), $getSlideOver->getParams(), key($getKey()))
             </div>

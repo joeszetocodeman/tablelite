@@ -74,6 +74,22 @@ and then you can use the keyword in records closure
 )
 ```
 
+#### Sortable
+if you want to make the Column sortable, you can use the ```sortable``` method
+```php
+$table->schema(fn(ColumnBuilder $builder) => [
+    $builder->text('code')->sortable(),
+]);
+```
+and then you can use the sort in records closure
+```php
+->records(
+    fn($sort) => // do something with this keyword
+)
+```
+it will return an array with the key ```column``` and ```direction```
+eg. ```['code' => 'asc' ]```
+
 #### Actions
 ```php
  $table->schema([
