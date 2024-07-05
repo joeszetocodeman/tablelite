@@ -3,7 +3,7 @@
 ])
 <div x-data="{ open: false }" x-on:{{ $event }}.window="() => {
     open = true
-}" class="flex justify-center">
+}" class="flex justify-center" {{ $attributes }} >
     <!-- Slideover -->
     <div
         x-dialog

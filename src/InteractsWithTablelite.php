@@ -16,6 +16,7 @@ trait InteractsWithTablelite
         'idsInPage' => [],
         'tableAllIds' => [],
         'tableSearchQuery' => '',
+        'sort' => []
     ];
 
     public function bootInteractsWithTablelite(): void
@@ -52,7 +53,15 @@ trait InteractsWithTablelite
 
     public function getTable(): Table
     {
-        $this->table->page(data_get($this->tableData, 'tablePage'));
+        $this->table
+            ->page(data_get($this->tableData, 'tablePage') );
         return $this->table;
+    }
+
+    public function sortTable($name)
+    {
+        $this->tableData['sort'] = [
+            $name => ($this->tableData['sort'][$name] ?? '') === 'asc' ? 'desc' : 'asc'
+        ];
     }
 }
