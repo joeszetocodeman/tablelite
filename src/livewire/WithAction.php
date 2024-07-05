@@ -12,7 +12,7 @@ trait WithAction
     public function callTableAction(string $name)
     {
         try {
-            $closure = $this->getAction($name);
+            $closure = $this->getTableAction($name);
             $this->evaluate($closure, [
                 'slideOver' => app(SlideOver::class, ['table' => $this->table])
             ]);
@@ -23,7 +23,7 @@ trait WithAction
     /**
      * @throws \Exception
      */
-    public function getAction(string $name)
+    public function getTableAction(string $name)
     {
         foreach ($this->table->getHeaderActions() as $action) {
             if ($action->getName() === $name) {
