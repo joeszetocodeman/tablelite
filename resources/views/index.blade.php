@@ -106,7 +106,15 @@
                         </x-table-lite::header-cell>
                     @endif
                     @foreach($columns as $column)
-                        <x-table-lite::header-cell>{{ $column->getLabel()  }}</x-table-lite::header-cell>
+
+                        <x-table-lite::header-cell
+                            :isSortColumn="true"
+                            :sortable="$column->isSortable()"
+                            name="{{ $column->getName() }}"
+                            sortDirection="{{ $getSortDirection($column->getName()) }}"
+                        >{{ $column->getLabel()  }}
+                        </x-table-lite::header-cell>
+
                     @endforeach
                     @if($actions)
                         <x-table-lite::header-cell></x-table-lite::header-cell>

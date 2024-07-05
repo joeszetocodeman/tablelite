@@ -84,7 +84,8 @@ class Table extends ViewComponent
         $records = $this->evaluate($this->records, [
             'page' => $this->page,
             'query' => $this->query,
-            'keyword' => $this->livewire->tableData['tableSearchQuery'] ?? ''
+            'keyword' => $this->livewire->tableData['tableSearchQuery'] ?? '',
+            'sort' => $this->livewire->tableData['sort'] ?? []
         ]);
 
         data_set($this->livewire, 'tableData.idsInPage', collect($records)->pluck('id')->toArray());
@@ -220,5 +221,10 @@ class Table extends ViewComponent
     public function getKeyBy()
     {
         return $this->evaluate($this->keyBy);
+    }
+
+    public function getSortDirection($name)
+    {
+        return $this->livewire->tableData['sort'][$name] ?? '';
     }
 }
