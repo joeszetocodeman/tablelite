@@ -64,4 +64,9 @@ trait InteractsWithTablelite
             $name => ($this->tableData['sort'][$name] ?? '') === 'asc' ? 'desc' : 'asc'
         ];
     }
+
+    public function updatedTableDataTableSearchQuery()
+    {
+        $this->tableData['tablePage'] = 1;
+    }
 }
