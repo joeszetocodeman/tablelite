@@ -4,8 +4,8 @@ namespace Tablelite\SupportActions;
 
 
 use Closure;
-use Filament\Support\Actions\Concerns\HasLabel;
-use Filament\Support\Actions\Concerns\HasName;
+use Filament\Actions\Concerns\HasLabel;
+use Filament\Actions\Concerns\HasName;
 use Filament\Support\Components\ViewComponent;
 use Tablelite\SupportSlideOver\SlideOver;
 use Tablelite\Table;
