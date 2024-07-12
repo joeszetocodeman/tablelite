@@ -21,7 +21,7 @@ class BaseAction extends ViewComponent
     protected string $key = '';
     protected $record;
     protected bool|Closure $disable = false;
-    private string $component = 'filament-support::button';
+    private string $component = 'filament::button';
 
     public static function make(string $name): static
     {
