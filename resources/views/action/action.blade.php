@@ -4,6 +4,8 @@
     $record = $getRecord();
     $name = $getName();
     $disable = $getDisable();
+    $url = $getUrl();
+    $openInNewTab = $getOpenInNewTab();
 @endphp
 <div>
     <div
@@ -14,6 +16,11 @@
                 $wire.emit(event)
             }"
         @endif
+
+        @if($url && !$disable)
+            x-on:click="window.open('{{$url}}', '{{ $openInNewTab ? '_blank' : '_self' }}')"
+        @endif
+
         @if (!$getSlideOver && !$disable)
             wire:click="callTableAction('{{ $getName() }}', '{{ $record->id }}' )"
         @endif

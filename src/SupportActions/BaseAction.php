@@ -21,6 +21,8 @@ class BaseAction extends ViewComponent
     protected string $key = '';
     protected $record;
     protected bool|Closure $disable = false;
+    protected string|Closure $url = '';
+    protected bool|Closure $openInNewTab = false;
     private string $component = 'filament-support::button';
 
     public static function make(string $name): static
@@ -36,12 +38,24 @@ class BaseAction extends ViewComponent
 
     public function getAction(): Closure
     {
-        return $this->action;
+        return $this->action ?? fn() => null;
     }
 
     public function slideOver(string|Closure $component, array|Closure $params = []): static
     {
         $this->table->slideOver($this, $component, $params);
+        return $this;
+    }
+
+    public function url(string|Closure $url): static
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    public function openInNewTab(bool|Closure $openInNewTab = true): static
+    {
+        $this->openInNewTab = $openInNewTab;
         return $this;
     }
 
@@ -87,6 +101,16 @@ class BaseAction extends ViewComponent
     public function getComponent()
     {
         return $this->component;
+    }
+
+    public function getUrl()
+    {
+        return $this->evaluate($this->url, ['record' => $this->getRecord()]);
+    }
+
+    public function getOpenInNewTab()
+    {
+        return $this->evaluate($this->openInNewTab);
     }
 
     public function text()
