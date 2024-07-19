@@ -17,10 +17,6 @@
             }"
         @endif
 
-        @if($url && !$disable)
-            x-on:click="window.open('{{$url}}', '{{ $openInNewTab ? '_blank' : '_self' }}')"
-        @endif
-
         @if (!$getSlideOver && !$disable)
             wire:click="callTableAction('{{ $getName() }}', '{{ $record->id }}' )"
         @endif
@@ -30,7 +26,7 @@
                 {{ $getLabel()  }}
             </x-dynamic-component>
         @else
-            <x-dynamic-component :$component>
+            <x-dynamic-component :$component href="{{ $url }}" tag="{{ $url ? 'a' : 'button'}}" target="{{ $openInNewTab ? '_blank' : '_self' }}">
                 {{ $getLabel()  }}
             </x-dynamic-component>
         @endif
