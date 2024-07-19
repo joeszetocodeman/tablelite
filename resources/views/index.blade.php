@@ -45,7 +45,7 @@
         },
         get idsInPage() {
             let ids = [];
-            for (let checkbox of this.$root.querySelectorAll('.filament-tables-checkbox-cell input[type=checkbox]')) {
+            for (let checkbox of this.$root.querySelectorAll('input[type=checkbox].fi-checkbox-input')) {
                   ids.push(checkbox.value);
             }
             return ids

@@ -2,13 +2,12 @@
 
 namespace Tablelite\livewire;
 
-use App\Domain\CouponInsert\Traits\EvaluatesClosures;
+use Filament\Support\Concerns\EvaluatesClosures;
 use Tablelite\SupportSlideOver\SlideOver;
 
 trait WithAction
 {
     use EvaluatesClosures;
-
     public function callTableAction(string $name)
     {
         try {
