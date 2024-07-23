@@ -62,7 +62,7 @@ class Table extends ViewComponent
     /**
      * @throws \Exception
      */
-    public function getRecords(): Collection
+    public function getRecords(): ?Collection
     {
         if ($this->cachedRecords) {
             return $this->cachedRecords;
@@ -92,6 +92,8 @@ class Table extends ViewComponent
         data_set($this->livewire, 'tableData.tableAllIds', $this->getTableAllIds());
 
         $records = $this->handlePaginate($records);
+        if (empty($records)) return null;
+
         $records = collect($records);
 
         // handle records
