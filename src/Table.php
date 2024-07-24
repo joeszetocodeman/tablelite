@@ -40,6 +40,7 @@ class Table extends ViewComponent
 
     protected Feature $feature;
     private string|Closure $keyBy = 'id';
+    protected string|Closure|null $emptyMsg = null;
 
     public function getColumns(): array
     {
@@ -48,7 +49,8 @@ class Table extends ViewComponent
 
     protected function model(): Model
     {
-        return new class extends Model {
+        return new class extends Model
+        {
             protected $guarded = false;
         };
     }
@@ -92,9 +94,8 @@ class Table extends ViewComponent
         data_set($this->livewire, 'tableData.tableAllIds', $this->getTableAllIds());
 
         $records = $this->handlePaginate($records);
-        if (empty($records)) return null;
-
         $records = collect($records);
+        if ($records->isEmpty()) return null;
 
         // handle records
         return $this->cachedRecords = $records->map(function (array|Arrayable|Model $data) {
@@ -106,6 +107,16 @@ class Table extends ViewComponent
         });
     }
 
+    public function emptyMsg(string|Closure|null $emptyMsg)
+    {
+        $this->emptyMsg = $emptyMsg;
+        return $this;
+    }
+
+    public function getEmptyMsg()
+    {
+        return $this->evaluate($this->emptyMsg, ['records' => $this->getRecords()]);
+    }
 
     public function getLinks(): ?Htmlable
     {
