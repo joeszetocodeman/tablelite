@@ -12,7 +12,11 @@
 
 <div class="max-w-md space-y-1">
 <h2 class="filament-tables-empty-state-heading text-xl font-bold tracking-tight">
-No records found
+    @if($emptyMsg)
+        {{ $emptyMsg }}
+    @else
+        No records found
+    @endif
 </h2>
 
 <p class="filament-tables-empty-state-description whitespace-normal text-sm font-medium text-gray-500">
