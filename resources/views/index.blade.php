@@ -101,26 +101,26 @@
             @endif
 
             <x-tables::table>
-                <x-slot:header>
-                    @if ( $hasFeature('bulkSelect'))
-                        <x-tables::header-cell>
-                            <x-tables::checkbox x-ref="checkallbox" @input="check" />
-                        </x-tables::header-cell>
-                    @endif
-                    @foreach($columns as $column)
-                        <x-tables::header-cell
-                            :isSortColumn="true"
-                            :sortable="$column->isSortable()"
-                            name="{{ $column->getName() }}"
-                            sortDirection="{{ $getSortDirection($column->getName()) }}"
-                        >{{ $column->getLabel()  }}
-                        </x-tables::header-cell>
-                    @endforeach
-                    @if($actions)
-                        <x-tables::header-cell></x-tables::header-cell>
-                    @endif
-                </x-slot:header>
                 @if($records)
+                    <x-slot:header>
+                        @if ( $hasFeature('bulkSelect'))
+                            <x-tables::header-cell>
+                                <x-tables::checkbox x-ref="checkallbox" @input="check" />
+                            </x-tables::header-cell>
+                        @endif
+                        @foreach($columns as $column)
+                            <x-tables::header-cell
+                                :isSortColumn="true"
+                                :sortable="$column->isSortable()"
+                                name="{{ $column->getName() }}"
+                                sortDirection="{{ $getSortDirection($column->getName()) }}"
+                            >{{ $column->getLabel()  }}
+                            </x-tables::header-cell>
+                        @endforeach
+                        @if($actions)
+                            <x-tables::header-cell></x-tables::header-cell>
+                        @endif
+                    </x-slot:header>
                     @foreach($records as $record)
                         <x-tables::row>
                             @include('table-lite::partials.checkbox')
@@ -140,6 +140,10 @@
                             @include('table-lite::partials.actions')
                         </x-tables::row>
                     @endforeach
+                @else
+                    <x-tables::row>
+                    @include('table-lite::partials.empty', ['emptyMsg' => $emptyMsg])
+                    </x-tables::row>
                 @endif
             </x-tables::table>
             @if ( $hasFeature('pagination') )
