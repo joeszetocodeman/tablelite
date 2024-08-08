@@ -15,4 +15,9 @@ class ActionFactory
     {
         return Action::make($key)->table($this->table);
     }
+
+    public function detail(string $key): Action
+    {
+        return DetailAction::make($key)->table($this->table);
+    }
 }

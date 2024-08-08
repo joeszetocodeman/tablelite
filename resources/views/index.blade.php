@@ -9,6 +9,8 @@
     $headerActions = $getHeaderActions();
     $actions = $getActions();
     $keyBy = $getKeyBy();
+    $emptyMsg = $getEmptyMsg();
+    $detailAction = collect($actions)->first(fn($action) => $action InstanceOf \Tablelite\SupportActions\DetailAction);
 @endphp
 <div>
     <div x-data="{
@@ -124,9 +126,15 @@
                             @include('table-lite::partials.checkbox')
                             @foreach($columns as $column)
                                 <x-tables::cell>
-                                    <div class="filament-tables-column-wrapper">
-                                        {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
-                                    </div>
+                                    @if( $detailAction )
+                                        <a href="{{ $detailAction->record($record)->getUrl() }}" class="filament-tables-column-wrapper">
+                                            {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
+                                        </a>
+                                    @else
+                                        <div class="filament-tables-column-wrapper">
+                                            {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
+                                        </div>
+                                    @endif
                                 </x-tables::cell>
                             @endforeach
                             @include('table-lite::partials.actions')

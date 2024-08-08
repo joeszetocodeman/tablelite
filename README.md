@@ -113,6 +113,13 @@ Text style action button
 $actionFactory->make('some_action')->text()
 ```
 
+if you want to make the whole row clickable you can use the ```detail``` method
+in action factory
+```php
+$actionFactory->detail('some_action')->url()
+```
+
+
 #### Disable action
 ```php
 $action->disabled()
