@@ -11,7 +11,7 @@
             x-on:click="() => {
                 let event = 'table-lite:show-slide-over-{{ $getKey() }}'
                 $dispatch(event)
-                $wire.emit(event)
+                $wire.dispatch(event)
             }"
         @endif
         @if (!$getSlideOver && !$disable)
