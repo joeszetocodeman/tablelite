@@ -22,6 +22,8 @@ class BaseAction extends ViewComponent
     protected $record;
     protected bool|Closure $disable = false;
     private string $component = 'filament::button';
+    protected string|Closure|null $url = null;
+    protected bool $openInNewTab = false;
 
     public static function make(string $name): static
     {
@@ -111,5 +113,35 @@ class BaseAction extends ViewComponent
     public function disabled(bool|Closure $disable = true): static
     {
         return $this->disable($disable);
+    }
+
+    public function url(string|Closure $url): static
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        if (!$this->url) {
+            return null;
+        }
+
+        $result = $this->evaluate($this->url, [
+            'record' => $this->getRecord()
+        ]);
+
+        return is_string($result) ? $result : null;
+    }
+
+    public function openUrlInNewTab(bool $condition = true): static
+    {
+        $this->openInNewTab = $condition;
+        return $this;
+    }
+
+    public function shouldOpenUrlInNewTab(): bool
+    {
+        return $this->openInNewTab;
     }
 }
