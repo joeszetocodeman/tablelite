@@ -24,7 +24,7 @@
                 }"
             @endif
             @if (!$getSlideOver && !$url && !$disable)
-                wire:click="callTableAction('{{ $getName() }}', '{{ $record->id }}' )"
+                wire:click="callTableAction('{{ $getName() }}', '{{ (string) $record->id }}' )"
             @endif
         >
             @if($disable)
