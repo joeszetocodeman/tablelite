@@ -144,4 +144,9 @@ class BaseAction extends ViewComponent
     {
         return $this->openInNewTab;
     }
+
+    public function openInNewTab(bool $condition = true): static
+    {
+        return $this->openUrlInNewTab($condition);
+    }
 }
