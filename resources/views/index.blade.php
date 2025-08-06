@@ -127,7 +127,7 @@
                             @foreach($columns as $column)
                                 <x-table-lite::cell>
                                     <div class="filament-tables-column-wrapper">
-                                        {{ $column->record($record)->viewData(['recordKey' => $record->id]) }}
+                                        {{ $column->record($record)->viewData(['recordKey' => (string) $record->id]) }}
                                     </div>
                                 </x-table-lite::cell>
                             @endforeach

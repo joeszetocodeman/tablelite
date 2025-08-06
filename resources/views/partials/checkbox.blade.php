@@ -3,7 +3,7 @@
         @if($getSelectableRecord($record))
         <x-table-lite::checkbox
                 x-model="selectedRecords"
-                :value="$record->id"
+                :value="(string) $record->id"
         />
         @endif
     </x-table-lite::cell>
